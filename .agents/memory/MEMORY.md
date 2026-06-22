@@ -1,0 +1,4 @@
+- [Clerk proxy dev vs prod](clerk-proxy-dev-prod.md) — Clerk proxy must be disabled in dev; `clerkProxyUrl` must be `undefined` in dev mode or ClerkJS fails to load.
+- [Orval codegen barrel fix](orval-codegen-barrel-fix.md) — orval regenerates a stale `export * from './generated/types'` barrel; strip it with sed in the codegen script.
+- [Generated hook query options](orval-query-options.md) — orval-generated query hooks require `queryKey` in every custom `query` options object (UseQueryOptions is not Partial).
+- [Generated mutation args](orval-mutation-args.md) — path params are top-level in mutateAsync args (not wrapped in `data`); only request bodies go in `data`.
