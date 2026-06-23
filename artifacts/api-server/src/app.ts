@@ -10,6 +10,7 @@ import {
   clerkProxyMiddleware,
   getClerkProxyHost,
 } from "./middlewares/clerkProxyMiddleware";
+import { banCheckMiddleware } from "./middlewares/banMiddleware";
 
 const app: Express = express();
 
@@ -48,6 +49,7 @@ app.use(
   })),
 );
 
+app.use("/api", banCheckMiddleware());
 app.use("/api", router);
 
 export default app;

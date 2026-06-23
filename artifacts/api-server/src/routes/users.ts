@@ -52,6 +52,7 @@ async function toUserSummary(user: typeof usersTable.$inferSelect, currentUserId
     username: user.username,
     displayName: user.displayName,
     avatarUrl: user.avatarUrl,
+    rank: user.rank,
     friendStatus,
   };
 }

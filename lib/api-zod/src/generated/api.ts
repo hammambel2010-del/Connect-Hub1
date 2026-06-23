@@ -28,6 +28,7 @@ export const GetMeResponse = zod.object({
   "age": zod.number().nullish(),
   "avatarUrl": zod.string().nullish(),
   "coverUrl": zod.string().nullish(),
+  "rank": zod.enum(['user', 'content_creator', 'hollywood', 'important', 'well_connected', 'advisor', 'co_admin', 'admin']),
   "friendCount": zod.number().optional(),
   "groupCount": zod.number().optional(),
   "createdAt": zod.coerce.date()
@@ -63,6 +64,7 @@ export const UpdateMeResponse = zod.object({
   "age": zod.number().nullish(),
   "avatarUrl": zod.string().nullish(),
   "coverUrl": zod.string().nullish(),
+  "rank": zod.enum(['user', 'content_creator', 'hollywood', 'important', 'well_connected', 'advisor', 'co_admin', 'admin']),
   "friendCount": zod.number().optional(),
   "groupCount": zod.number().optional(),
   "createdAt": zod.coerce.date()
@@ -85,6 +87,7 @@ export const SearchUsersResponseItem = zod.object({
   "username": zod.string(),
   "displayName": zod.string(),
   "avatarUrl": zod.string().nullish(),
+  "rank": zod.enum(['user', 'content_creator', 'hollywood', 'important', 'well_connected', 'advisor', 'co_admin', 'admin']),
   "friendStatus": zod.union([zod.literal('friends'),zod.literal('pending_sent'),zod.literal('pending_received'),zod.literal(null)]).nullish()
 })
 export const SearchUsersResponse = zod.array(SearchUsersResponseItem)
@@ -106,6 +109,7 @@ export const GetUserByIdResponse = zod.object({
   "age": zod.number().nullish(),
   "avatarUrl": zod.string().nullish(),
   "coverUrl": zod.string().nullish(),
+  "rank": zod.enum(['user', 'content_creator', 'hollywood', 'important', 'well_connected', 'advisor', 'co_admin', 'admin']),
   "friendCount": zod.number().optional(),
   "groupCount": zod.number().optional(),
   "createdAt": zod.coerce.date()
@@ -121,6 +125,7 @@ export const GetFriendsResponseItem = zod.object({
   "username": zod.string(),
   "displayName": zod.string(),
   "avatarUrl": zod.string().nullish(),
+  "rank": zod.enum(['user', 'content_creator', 'hollywood', 'important', 'well_connected', 'advisor', 'co_admin', 'admin']),
   "friendStatus": zod.union([zod.literal('friends'),zod.literal('pending_sent'),zod.literal('pending_received'),zod.literal(null)]).nullish()
 })
 export const GetFriendsResponse = zod.array(GetFriendsResponseItem)
@@ -140,6 +145,7 @@ export const GetFriendRequestsResponseItem = zod.object({
   "username": zod.string(),
   "displayName": zod.string(),
   "avatarUrl": zod.string().nullish(),
+  "rank": zod.enum(['user', 'content_creator', 'hollywood', 'important', 'well_connected', 'advisor', 'co_admin', 'admin']),
   "friendStatus": zod.union([zod.literal('friends'),zod.literal('pending_sent'),zod.literal('pending_received'),zod.literal(null)]).nullish()
 }).optional(),
   "toUser": zod.object({
@@ -148,6 +154,7 @@ export const GetFriendRequestsResponseItem = zod.object({
   "username": zod.string(),
   "displayName": zod.string(),
   "avatarUrl": zod.string().nullish(),
+  "rank": zod.enum(['user', 'content_creator', 'hollywood', 'important', 'well_connected', 'advisor', 'co_admin', 'admin']),
   "friendStatus": zod.union([zod.literal('friends'),zod.literal('pending_sent'),zod.literal('pending_received'),zod.literal(null)]).nullish()
 }).optional(),
   "createdAt": zod.coerce.date()
@@ -189,6 +196,7 @@ export const AcceptFriendRequestResponse = zod.object({
   "username": zod.string(),
   "displayName": zod.string(),
   "avatarUrl": zod.string().nullish(),
+  "rank": zod.enum(['user', 'content_creator', 'hollywood', 'important', 'well_connected', 'advisor', 'co_admin', 'admin']),
   "friendStatus": zod.union([zod.literal('friends'),zod.literal('pending_sent'),zod.literal('pending_received'),zod.literal(null)]).nullish()
 }).optional(),
   "toUser": zod.object({
@@ -197,6 +205,7 @@ export const AcceptFriendRequestResponse = zod.object({
   "username": zod.string(),
   "displayName": zod.string(),
   "avatarUrl": zod.string().nullish(),
+  "rank": zod.enum(['user', 'content_creator', 'hollywood', 'important', 'well_connected', 'advisor', 'co_admin', 'admin']),
   "friendStatus": zod.union([zod.literal('friends'),zod.literal('pending_sent'),zod.literal('pending_received'),zod.literal(null)]).nullish()
 }).optional(),
   "createdAt": zod.coerce.date()
@@ -221,6 +230,7 @@ export const RejectFriendRequestResponse = zod.object({
   "username": zod.string(),
   "displayName": zod.string(),
   "avatarUrl": zod.string().nullish(),
+  "rank": zod.enum(['user', 'content_creator', 'hollywood', 'important', 'well_connected', 'advisor', 'co_admin', 'admin']),
   "friendStatus": zod.union([zod.literal('friends'),zod.literal('pending_sent'),zod.literal('pending_received'),zod.literal(null)]).nullish()
 }).optional(),
   "toUser": zod.object({
@@ -229,6 +239,7 @@ export const RejectFriendRequestResponse = zod.object({
   "username": zod.string(),
   "displayName": zod.string(),
   "avatarUrl": zod.string().nullish(),
+  "rank": zod.enum(['user', 'content_creator', 'hollywood', 'important', 'well_connected', 'advisor', 'co_admin', 'admin']),
   "friendStatus": zod.union([zod.literal('friends'),zod.literal('pending_sent'),zod.literal('pending_received'),zod.literal(null)]).nullish()
 }).optional(),
   "createdAt": zod.coerce.date()
@@ -245,6 +256,7 @@ export const GetConversationsResponseItem = zod.object({
   "username": zod.string(),
   "displayName": zod.string(),
   "avatarUrl": zod.string().nullish(),
+  "rank": zod.enum(['user', 'content_creator', 'hollywood', 'important', 'well_connected', 'advisor', 'co_admin', 'admin']),
   "friendStatus": zod.union([zod.literal('friends'),zod.literal('pending_sent'),zod.literal('pending_received'),zod.literal(null)]).nullish()
 }),
   "lastMessage": zod.object({
@@ -261,6 +273,7 @@ export const GetConversationsResponseItem = zod.object({
   "username": zod.string(),
   "displayName": zod.string(),
   "avatarUrl": zod.string().nullish(),
+  "rank": zod.enum(['user', 'content_creator', 'hollywood', 'important', 'well_connected', 'advisor', 'co_admin', 'admin']),
   "friendStatus": zod.union([zod.literal('friends'),zod.literal('pending_sent'),zod.literal('pending_received'),zod.literal(null)]).nullish()
 }).optional(),
   "createdAt": zod.coerce.date()
@@ -298,6 +311,7 @@ export const GetDirectMessagesResponseItem = zod.object({
   "username": zod.string(),
   "displayName": zod.string(),
   "avatarUrl": zod.string().nullish(),
+  "rank": zod.enum(['user', 'content_creator', 'hollywood', 'important', 'well_connected', 'advisor', 'co_admin', 'admin']),
   "friendStatus": zod.union([zod.literal('friends'),zod.literal('pending_sent'),zod.literal('pending_received'),zod.literal(null)]).nullish()
 }).optional(),
   "createdAt": zod.coerce.date()
@@ -474,6 +488,7 @@ export const GetGroupMembersResponseItem = zod.object({
   "username": zod.string(),
   "displayName": zod.string(),
   "avatarUrl": zod.string().nullish(),
+  "rank": zod.enum(['user', 'content_creator', 'hollywood', 'important', 'well_connected', 'advisor', 'co_admin', 'admin']),
   "friendStatus": zod.union([zod.literal('friends'),zod.literal('pending_sent'),zod.literal('pending_received'),zod.literal(null)]).nullish()
 }),
   "role": zod.enum(['admin', 'member']),
@@ -510,6 +525,7 @@ export const GetGroupMessagesResponseItem = zod.object({
   "username": zod.string(),
   "displayName": zod.string(),
   "avatarUrl": zod.string().nullish(),
+  "rank": zod.enum(['user', 'content_creator', 'hollywood', 'important', 'well_connected', 'advisor', 'co_admin', 'admin']),
   "friendStatus": zod.union([zod.literal('friends'),zod.literal('pending_sent'),zod.literal('pending_received'),zod.literal(null)]).nullish()
 }).optional(),
   "createdAt": zod.coerce.date()
@@ -577,6 +593,115 @@ export const GetPublicObjectParams = zod.object({
  */
 export const GetStorageObjectParams = zod.object({
   "objectPath": zod.coerce.string()
+})
+
+
+/**
+ * @summary Verify admin password and gain admin rank
+ */
+export const VerifyAdminBody = zod.object({
+  "password": zod.string()
+})
+
+export const VerifyAdminResponse = zod.object({
+  "id": zod.number(),
+  "clerkId": zod.string(),
+  "username": zod.string(),
+  "displayName": zod.string(),
+  "bio": zod.string().nullish(),
+  "age": zod.number().nullish(),
+  "avatarUrl": zod.string().nullish(),
+  "coverUrl": zod.string().nullish(),
+  "rank": zod.enum(['user', 'content_creator', 'hollywood', 'important', 'well_connected', 'advisor', 'co_admin', 'admin']),
+  "friendCount": zod.number().optional(),
+  "groupCount": zod.number().optional(),
+  "createdAt": zod.coerce.date()
+})
+
+
+/**
+ * @summary List all users with admin info (admin/co-admin only)
+ */
+export const GetAdminUsersResponseItem = zod.object({
+  "id": zod.number(),
+  "clerkId": zod.string(),
+  "username": zod.string(),
+  "displayName": zod.string(),
+  "avatarUrl": zod.string().nullish(),
+  "rank": zod.enum(['user', 'content_creator', 'hollywood', 'important', 'well_connected', 'advisor', 'co_admin', 'admin']),
+  "isBanned": zod.boolean(),
+  "banExpiresAt": zod.coerce.date().nullish(),
+  "banReason": zod.string().nullish()
+})
+export const GetAdminUsersResponse = zod.array(GetAdminUsersResponseItem)
+
+
+/**
+ * @summary Set a user rank (admin/co-admin only)
+ */
+export const SetUserRankParams = zod.object({
+  "userId": zod.coerce.number()
+})
+
+export const SetUserRankBody = zod.object({
+  "rank": zod.enum(['user', 'content_creator', 'hollywood', 'important', 'well_connected', 'advisor', 'co_admin', 'admin'])
+})
+
+export const SetUserRankResponse = zod.object({
+  "id": zod.number(),
+  "clerkId": zod.string(),
+  "username": zod.string(),
+  "displayName": zod.string(),
+  "avatarUrl": zod.string().nullish(),
+  "rank": zod.enum(['user', 'content_creator', 'hollywood', 'important', 'well_connected', 'advisor', 'co_admin', 'admin']),
+  "isBanned": zod.boolean(),
+  "banExpiresAt": zod.coerce.date().nullish(),
+  "banReason": zod.string().nullish()
+})
+
+
+/**
+ * @summary Ban a user (admin/co-admin only)
+ */
+export const BanUserParams = zod.object({
+  "userId": zod.coerce.number()
+})
+
+export const BanUserBody = zod.object({
+  "reason": zod.string().optional(),
+  "durationHours": zod.number().nullish().describe('Ban duration in hours. null means permanent.')
+})
+
+export const BanUserResponse = zod.object({
+  "id": zod.number(),
+  "clerkId": zod.string(),
+  "username": zod.string(),
+  "displayName": zod.string(),
+  "avatarUrl": zod.string().nullish(),
+  "rank": zod.enum(['user', 'content_creator', 'hollywood', 'important', 'well_connected', 'advisor', 'co_admin', 'admin']),
+  "isBanned": zod.boolean(),
+  "banExpiresAt": zod.coerce.date().nullish(),
+  "banReason": zod.string().nullish()
+})
+
+
+/**
+ * @summary Unban a user (admin/co-admin only)
+ */
+export const UnbanUserParams = zod.object({
+  "userId": zod.coerce.number()
+})
+
+export const UnbanUserResponse = zod.object({
+  "id": zod.number(),
+  "clerkId": zod.string(),
+  "username": zod.string(),
+  "displayName": zod.string(),
+  "avatarUrl": zod.string().nullish(),
+  "rank": zod.enum(['user', 'content_creator', 'hollywood', 'important', 'well_connected', 'advisor', 'co_admin', 'admin']),
+  "isBanned": zod.boolean(),
+  "banExpiresAt": zod.coerce.date().nullish(),
+  "banReason": zod.string().nullish()
 })
 
 

@@ -1,6 +1,7 @@
 import { useGetUserById, useSendFriendRequest, useCancelFriendRequest, useGetFriends, useGetFriendRequests, getGetUserByIdQueryKey, getGetFriendsQueryKey, getGetFriendRequestsQueryKey } from "@workspace/api-client-react";
 import { useParams, useLocation } from "wouter";
 import { User, MessageCircle, UserPlus, UserMinus, Clock, Loader2, ArrowRight } from "lucide-react";
+import { RankBadge } from "@/components/rank-badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { UserAvatar } from "@/components/user-avatar";
@@ -139,7 +140,12 @@ export default function UserProfilePage() {
 
         <div className="mt-2 space-y-6">
           <div>
-            <h1 className="text-2xl font-bold">{profile.displayName}</h1>
+            <div className="flex items-center gap-2 flex-wrap">
+              <h1 className="text-2xl font-bold">{profile.displayName}</h1>
+              {profile.rank && profile.rank !== "user" && (
+                <RankBadge rank={profile.rank} size="md" />
+              )}
+            </div>
             <p className="text-muted-foreground">@{profile.username}</p>
           </div>
 

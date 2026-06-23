@@ -19,6 +19,7 @@ import FriendsPage from "@/pages/friends";
 import SearchPage from "@/pages/search";
 import ProfilePage from "@/pages/profile";
 import UserProfilePage from "@/pages/profile-id";
+import AdminPage from "@/pages/admin";
 import SignInPage from "@/pages/sign-in";
 import SignUpPage from "@/pages/sign-up";
 import NotFound from "@/pages/not-found";
@@ -159,6 +160,7 @@ function ClerkProviderWithRoutes() {
           <Route path="/search" component={() => <ProtectedRoute component={SearchPage} />} />
           <Route path="/profile" component={() => <ProtectedRoute component={ProfilePage} />} />
           <Route path="/profile/:userId" component={() => <ProtectedRoute component={UserProfilePage} />} />
+          <Route path="/admin" component={() => <ProtectedRoute component={AdminPage} />} />
 
           <Route component={NotFound} />
         </Switch>

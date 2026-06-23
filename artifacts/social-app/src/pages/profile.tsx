@@ -1,6 +1,9 @@
 import { useGetMe, useUpdateMe } from "@workspace/api-client-react";
 import { useState, useEffect } from "react";
-import { User, Settings, Camera, Edit2, Loader2, Save, X } from "lucide-react";
+import { User, Camera, Edit2, Loader2, Save, X, Crown } from "lucide-react";
+import { RankBadge } from "@/components/rank-badge";
+import { useLocation } from "wouter";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -13,6 +16,7 @@ import { getGetMeQueryKey } from "@workspace/api-client-react";
 export default function ProfilePage() {
   const { data: profile, isLoading } = useGetMe();
   const updateMutation = useUpdateMe();
+  const [, setLocation] = useLocation();
   const queryClient = useQueryClient();
   const { uploadFile, isUploading } = useMediaUpload();
 
@@ -187,7 +191,12 @@ export default function ProfilePage() {
         ) : (
           <div className="mt-2 space-y-6">
             <div>
-              <h1 className="text-2xl font-bold">{profile.displayName}</h1>
+              <div className="flex items-center gap-2 flex-wrap">
+                <h1 className="text-2xl font-bold">{profile.displayName}</h1>
+                {profile.rank && profile.rank !== "user" && (
+                  <RankBadge rank={profile.rank} size="md" />
+                )}
+              </div>
               <p className="text-muted-foreground">@{profile.username}</p>
             </div>
 
@@ -213,6 +222,19 @@ export default function ProfilePage() {
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <User className="w-4 h-4" />
                 <span>{profile.age} سنة</span>
+              </div>
+            )}
+
+            {/* Admin panel shortcut */}
+            {(profile.rank === "admin" || profile.rank === "co_admin") && (
+              <div className="pt-2">
+                <button
+                  onClick={() => setLocation("/admin")}
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-yellow-400/10 border border-yellow-400/30 text-yellow-600 hover:bg-yellow-400/20 transition-colors text-sm font-medium"
+                >
+                  <Crown className="w-4 h-4" />
+                  فتح لوحة المدير
+                </button>
               </div>
             )}
           </div>

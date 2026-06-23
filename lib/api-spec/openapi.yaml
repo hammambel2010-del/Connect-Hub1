@@ -19,6 +19,8 @@ tags:
     description: Friend requests and connections
   - name: storage
     description: Object storage upload and serving endpoints
+  - name: admin
+    description: Admin management operations
 paths:
   /healthz:
     get:
@@ -591,6 +593,118 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorEnvelope"
 
+  # ── Admin ────────────────────────────────────────────────────────────────────
+  /admin/verify:
+    post:
+      operationId: verifyAdmin
+      tags: [admin]
+      summary: Verify admin password and gain admin rank
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminVerifyInput"
+      responses:
+        "200":
+          description: Admin rank granted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+        "401":
+          description: Wrong password
+
+  /admin/users:
+    get:
+      operationId: getAdminUsers
+      tags: [admin]
+      summary: List all users with admin info (admin/co-admin only)
+      responses:
+        "200":
+          description: All users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AdminUser"
+        "403":
+          description: Forbidden
+
+  /admin/users/{userId}/rank:
+    put:
+      operationId: setUserRank
+      tags: [admin]
+      summary: Set a user rank (admin/co-admin only)
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RankInput"
+      responses:
+        "200":
+          description: Rank updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminUser"
+        "403":
+          description: Forbidden
+
+  /admin/users/{userId}/ban:
+    post:
+      operationId: banUser
+      tags: [admin]
+      summary: Ban a user (admin/co-admin only)
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BanInput"
+      responses:
+        "200":
+          description: User banned
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminUser"
+        "403":
+          description: Forbidden
+    delete:
+      operationId: unbanUser
+      tags: [admin]
+      summary: Unban a user (admin/co-admin only)
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: User unbanned
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminUser"
+        "403":
+          description: Forbidden
+
 components:
   schemas:
     HealthStatus:
@@ -602,7 +716,7 @@ components:
 
     UserProfile:
       type: object
-      required: [id, clerkId, username, displayName, createdAt]
+      required: [id, clerkId, username, displayName, createdAt, rank]
       properties:
         id:
           type: integer
@@ -620,6 +734,9 @@ components:
           type: ["string", "null"]
         coverUrl:
           type: ["string", "null"]
+        rank:
+          type: string
+          enum: [user, content_creator, hollywood, important, well_connected, advisor, co_admin, admin]
         friendCount:
           type: integer
         groupCount:
@@ -650,7 +767,7 @@ components:
 
     UserSummary:
       type: object
-      required: [id, clerkId, username, displayName]
+      required: [id, clerkId, username, displayName, rank]
       properties:
         id:
           type: integer
@@ -662,6 +779,9 @@ components:
           type: string
         avatarUrl:
           type: ["string", "null"]
+        rank:
+          type: string
+          enum: [user, content_creator, hollywood, important, well_connected, advisor, co_admin, admin]
         friendStatus:
           type: ["string", "null"]
           enum: ["friends", "pending_sent", "pending_received", null]
@@ -832,3 +952,52 @@ components:
       properties:
         error:
           type: string
+
+    AdminVerifyInput:
+      type: object
+      required: [password]
+      properties:
+        password:
+          type: string
+
+    RankInput:
+      type: object
+      required: [rank]
+      properties:
+        rank:
+          type: string
+          enum: [user, content_creator, hollywood, important, well_connected, advisor, co_admin, admin]
+
+    BanInput:
+      type: object
+      properties:
+        reason:
+          type: string
+        durationHours:
+          type: ["integer", "null"]
+          description: Ban duration in hours. null means permanent.
+
+    AdminUser:
+      type: object
+      required: [id, clerkId, username, displayName, rank, isBanned]
+      properties:
+        id:
+          type: integer
+        clerkId:
+          type: string
+        username:
+          type: string
+        displayName:
+          type: string
+        avatarUrl:
+          type: ["string", "null"]
+        rank:
+          type: string
+          enum: [user, content_creator, hollywood, important, well_connected, advisor, co_admin, admin]
+        isBanned:
+          type: boolean
+        banExpiresAt:
+          type: ["string", "null"]
+          format: date-time
+        banReason:
+          type: ["string", "null"]

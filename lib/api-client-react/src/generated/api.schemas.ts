@@ -9,6 +9,20 @@ export interface HealthStatus {
   status: string;
 }
 
+export type UserProfileRank = typeof UserProfileRank[keyof typeof UserProfileRank];
+
+
+export const UserProfileRank = {
+  user: 'user',
+  content_creator: 'content_creator',
+  hollywood: 'hollywood',
+  important: 'important',
+  well_connected: 'well_connected',
+  advisor: 'advisor',
+  co_admin: 'co_admin',
+  admin: 'admin',
+} as const;
+
 export interface UserProfile {
   id: number;
   clerkId: string;
@@ -22,6 +36,7 @@ export interface UserProfile {
   avatarUrl?: string | null;
   /** @nullable */
   coverUrl?: string | null;
+  rank: UserProfileRank;
   friendCount?: number;
   groupCount?: number;
   createdAt: string;
@@ -42,6 +57,20 @@ export interface UserProfileUpdate {
   coverUrl?: string;
 }
 
+export type UserSummaryRank = typeof UserSummaryRank[keyof typeof UserSummaryRank];
+
+
+export const UserSummaryRank = {
+  user: 'user',
+  content_creator: 'content_creator',
+  hollywood: 'hollywood',
+  important: 'important',
+  well_connected: 'well_connected',
+  advisor: 'advisor',
+  co_admin: 'co_admin',
+  admin: 'admin',
+} as const;
+
 /**
  * @nullable
  */
@@ -61,6 +90,7 @@ export interface UserSummary {
   displayName: string;
   /** @nullable */
   avatarUrl?: string | null;
+  rank: UserSummaryRank;
   /** @nullable */
   friendStatus?: UserSummaryFriendStatus;
 }
@@ -204,6 +234,66 @@ export interface UploadUrlResponse {
 
 export interface ErrorEnvelope {
   error: string;
+}
+
+export interface AdminVerifyInput {
+  password: string;
+}
+
+export type RankInputRank = typeof RankInputRank[keyof typeof RankInputRank];
+
+
+export const RankInputRank = {
+  user: 'user',
+  content_creator: 'content_creator',
+  hollywood: 'hollywood',
+  important: 'important',
+  well_connected: 'well_connected',
+  advisor: 'advisor',
+  co_admin: 'co_admin',
+  admin: 'admin',
+} as const;
+
+export interface RankInput {
+  rank: RankInputRank;
+}
+
+export interface BanInput {
+  reason?: string;
+  /**
+     * Ban duration in hours. null means permanent.
+     * @nullable
+     */
+  durationHours?: number | null;
+}
+
+export type AdminUserRank = typeof AdminUserRank[keyof typeof AdminUserRank];
+
+
+export const AdminUserRank = {
+  user: 'user',
+  content_creator: 'content_creator',
+  hollywood: 'hollywood',
+  important: 'important',
+  well_connected: 'well_connected',
+  advisor: 'advisor',
+  co_admin: 'co_admin',
+  admin: 'admin',
+} as const;
+
+export interface AdminUser {
+  id: number;
+  clerkId: string;
+  username: string;
+  displayName: string;
+  /** @nullable */
+  avatarUrl?: string | null;
+  rank: AdminUserRank;
+  isBanned: boolean;
+  /** @nullable */
+  banExpiresAt?: string | null;
+  /** @nullable */
+  banReason?: string | null;
 }
 
 export type SearchUsersParams = {

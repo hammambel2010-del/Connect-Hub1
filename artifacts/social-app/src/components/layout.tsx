@@ -1,14 +1,17 @@
 import { Link, useLocation } from "wouter";
 import { useAuth, useUser, useClerk } from "@clerk/react";
-import { Home, MessageCircle, Users, Search, User, LogOut, PlusCircle, UserPlus, Menu } from "lucide-react";
+import { Home, MessageCircle, Users, Search, User, LogOut, PlusCircle, Menu, Crown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { UserAvatar } from "@/components/user-avatar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useGetMe } from "@workspace/api-client-react";
 
 function NavLinks({ closeSheet }: { closeSheet?: () => void }) {
   const [location] = useLocation();
+  const { data: me } = useGetMe();
+  const isPrivileged = me?.rank === "admin" || me?.rank === "co_admin";
 
   const links = [
     { href: "/", label: "الرئيسية", icon: Home },
@@ -17,6 +20,7 @@ function NavLinks({ closeSheet }: { closeSheet?: () => void }) {
     { href: "/groups", label: "المجموعات", icon: PlusCircle },
     { href: "/search", label: "البحث", icon: Search },
     { href: "/profile", label: "الملف الشخصي", icon: User },
+    ...(isPrivileged ? [{ href: "/admin", label: "لوحة المدير", icon: Crown }] : []),
   ];
 
   return (
