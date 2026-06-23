@@ -6,13 +6,8 @@ import { UserAvatar } from "@/components/user-avatar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useGetMe } from "@workspace/api-client-react";
-
 function NavLinks({ closeSheet }: { closeSheet?: () => void }) {
   const [location] = useLocation();
-  const { data: me } = useGetMe();
-  const isPrivileged = me?.rank === "admin" || me?.rank === "co_admin";
-
   const links = [
     { href: "/", label: "الرئيسية", icon: Home },
     { href: "/messages", label: "الرسائل", icon: MessageCircle },
@@ -20,7 +15,7 @@ function NavLinks({ closeSheet }: { closeSheet?: () => void }) {
     { href: "/groups", label: "المجموعات", icon: PlusCircle },
     { href: "/search", label: "البحث", icon: Search },
     { href: "/profile", label: "الملف الشخصي", icon: User },
-    ...(isPrivileged ? [{ href: "/admin", label: "لوحة المدير", icon: Crown }] : []),
+    { href: "/admin", label: "لوحة المدير", icon: Crown },
   ];
 
   return (
