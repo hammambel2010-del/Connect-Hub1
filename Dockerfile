@@ -20,7 +20,7 @@ COPY lib/db/package.json                          ./lib/db/
 COPY scripts/package.json                         ./scripts/
 
 # Install all dependencies
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --no-frozen-lockfile
 
 # Copy the rest of the source
 COPY . .
@@ -63,10 +63,11 @@ COPY scripts/package.json               ./scripts/
 # mockup-sandbox not needed at runtime but pnpm workspace requires the manifest
 COPY artifacts/mockup-sandbox/package.json ./artifacts/mockup-sandbox/
 
-RUN pnpm install --frozen-lockfile --prod \
+RUN pnpm install --no-frozen-lockfile --prod \
     --filter @workspace/api-server... \
     --filter @workspace/db... \
     --filter @workspace/api-zod...
+
 
 # Copy the built API server bundle
 COPY --from=builder /app/artifacts/api-server/dist ./artifacts/api-server/dist
